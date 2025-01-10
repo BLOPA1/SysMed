@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestión de Consultas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <a href="{% url 'crear_consulta' %}" class="btn btn-primary">Nueva Consulta</a>
+    <a href="{% url 'administrar_pacientes' %}" class="btn btn-secondary">Pacientes</a>
+</div>
+<h1 class="text-center">Gestión de Consultas</h1>
+{% if consultas %}
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Paciente</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Diagnóstico</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for consulta in consultas %}
+        <tr>
+            <td>{{ consulta.paciente.nombre_completo }}</td>
+            <td>{{ consulta.fecha|date:"Y-m-d H:i" }}</td>
+            <td>{{ consulta.descripcion }}</td>
+            <td>{{ consulta.diagnostico }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-center">No hay consultas registradas.</p>
+{% endif %}
+{% endblock %}

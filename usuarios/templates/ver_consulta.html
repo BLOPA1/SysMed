@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Ver Consulta{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Detalles de la Consulta</h1>
+    <div class="card mt-4">
+        <div class="card-body">
+            <p><strong>Fecha:</strong> {{ consulta.fecha|date:"d/m/Y H:i" }}</p>
+            <p><strong>Descripción:</strong> {{ consulta.descripcion }}</p>
+            <p><strong>Diagnóstico:</strong> {{ consulta.diagnostico }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

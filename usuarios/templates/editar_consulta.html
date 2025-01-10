@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Consulta{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Editar Consulta</h1>
+    <form method="post" action="{% url 'editar_consulta' consulta.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha y Hora</label>
+            <input type="datetime-local" class="form-control" id="fecha" name="fecha" value="{{ consulta.fecha|date:'Y-m-d\TH:i' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion">{{ consulta.descripcion }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="diagnostico" class="form-label">Diagnóstico</label>
+            <textarea class="form-control" id="diagnostico" name="diagnostico">{{ consulta.diagnostico }}</textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{% url 'ficha_paciente' consulta.paciente.id %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

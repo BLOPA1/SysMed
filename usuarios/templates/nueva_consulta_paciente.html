@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Nueva Consulta{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Nueva Consulta para {{ paciente.nombre_completo }}</h1>
+    <form method="post" action="{% url 'nueva_consulta_paciente' paciente.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha y Hora</label>
+            <input type="datetime-local" class="form-control" id="fecha" name="fecha" required>
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="diagnostico" class="form-label">Diagnóstico</label>
+            <textarea class="form-control" id="diagnostico" name="diagnostico"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{% url 'ficha_paciente' paciente.id %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
