@@ -25,8 +25,12 @@ SECRET_KEY = 'django-insecure-3%l!o9c_l^ji^1aw8%##dxv4ux!g6n1$-=rk4(bw@^o^lx1@-a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'b7c0-131-100-185-93.ngrok-free.app']
 
+# Agregar Ngrok a los orígenes de confianza para CSRF
+CSRF_TRUSTED_ORIGINS = [
+    'https://b7c0-131-100-185-93.ngrok-free.app'
+]
 
 # Application definition
 
@@ -71,7 +75,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'consultorio.wsgi.application'
 
 
@@ -88,8 +91,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
 
 
 # Password validation
