@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Bienvenido{% endblock %}
-
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Bienvenido al Consultorio</h1>
-    <p>Por favor, inicie sesión para continuar.</p>
+<div class="container text-center">
+    <h1>Gestión del Consultorio</h1>
+    <p>Por favor, inicia sesión para continuar.</p>
     <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
 </div>
 {% endblock %}

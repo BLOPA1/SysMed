@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- Botones de navegación -->
+        <div class="col-md-4 d-flex flex-column align-items-stretch">
+            <a href="{% url 'gestionar_consultas' %}" class="btn btn-primary btn-lg mb-3">Gestión de Consultas</a>
+            <a href="{% url 'listar_citas' %}" class="btn btn-secondary btn-lg mb-3">Citas</a>
+            <a href="{% url 'calendario' %}" class="btn btn-success btn-lg mb-3">Calendario</a>
+            <a href="{% url 'administrar_pacientes' %}" class="btn btn-info btn-lg">Pacientes</a>
+        </div>
+        <!-- Vista previa del calendario -->
+        <div class="col-md-8">
+            <div id="calendar-preview" class="mt-4"></div> <!-- Espaciado agregado con mt-4 -->
+        </div>
+    </div>
+</div>
+
+<!-- Script para la vista previa del calendario -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.4/index.global.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar-preview');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', // Vista mensual
+            headerToolbar: false, // Sin controles adicionales
+            height: 500, // Ajustar la altura del calendario
+            contentHeight: 'auto', // Adaptar el tamaño del contenido al contenedor
+            events: '/citas/calendario_citas/', // Asegúrate de que esta URL devuelve los eventos correctos
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

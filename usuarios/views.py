@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from .models import Paciente, Consulta
+from django.utils.timezone import now
 
-# Página principal del sistema
+# Página principal del sistema (con botón de login)
 def pagina_principal(request):
-    return render(request, 'pagina_principal.html')
+    # Esta página siempre debe mostrarse primero, incluso si el usuario está autenticado
+    return render(request, 'pagina_principal.html')  # Página para iniciar sesión
 
 # Vista para el inicio de sesión
 def login(request):
@@ -14,11 +16,23 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            auth_login(request, user)
-            return redirect('gestionar_consultas')
+            auth_login(request, user)  # Iniciar sesión
+            return redirect('inicio')  # Redirigir al inicio después del login
         else:
             return render(request, 'login.html', {'error': 'Credenciales inválidas'})
-    return render(request, 'login.html')
+    return render(request, 'login.html')  # Formulario de inicio de sesión
+
+# Vista para cerrar sesión
+def logout(request):
+    auth_logout(request)
+    return redirect('pagina_principal')  # Redirigir a la página principal después de cerrar sesión
+
+# Vista del inicio con fecha y usuario actual
+@login_required
+def inicio(request):
+    fecha_actual = now().strftime("%d/%m/%Y")
+    usuario_actual = request.user  # Usuario autenticado
+    return render(request, 'inicio.html', {'fecha_actual': fecha_actual, 'usuario_actual': usuario_actual})
 
 # Vista para gestionar consultas
 @login_required

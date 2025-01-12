@@ -8,11 +8,13 @@ from .views import (
     ver_consulta,
     editar_consulta,
     login,
+    inicio,
     pagina_principal,
 )
 
 urlpatterns = [
-    path('', pagina_principal, name='pagina_principal'),
+    path('', pagina_principal, name='pagina_principal'),  # Página inicial con botón de login
+    path('inicio/', inicio, name='inicio'),  # Página de inicio después del login
     path('consultas/', gestionar_consultas, name='gestionar_consultas'),
     path('nueva/', crear_consulta, name='crear_consulta'),
     path('pacientes/', administrar_pacientes, name='administrar_pacientes'),

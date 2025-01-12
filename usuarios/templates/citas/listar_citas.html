@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Lista de Citas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Paciente</th>
+            <th>Fecha y Hora</th>
+            <th>Motivo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cita in citas %}
+        <tr>
+            <td>{{ cita.paciente.username }}</td>
+            <td>{{ cita.fecha_hora }}</td>
+            <td>{{ cita.motivo }}</td>
+            <td>{{ cita.get_estado_display }}</td>
+            <td>
+                <!-- Botón de edición (ya existente) -->
+                <a href="{% url 'editar_cita' cita.id %}" class="btn btn-primary btn-sm">Editar</a>
+                
+                <!-- Botón de eliminación (nuevo) -->
+                <a href="{% url 'eliminar_cita' cita.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- Botón para crear una nueva cita -->
+<a href="{% url 'crear_cita' %}" class="btn btn-success">Crear Cita</a>
+{% endblock %}

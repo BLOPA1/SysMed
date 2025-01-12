@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Eliminar Cita</h2>
+    <p>¿Estás seguro de que deseas eliminar esta cita?</p>
+    <ul>
+        <li><strong>Motivo:</strong> {{ cita.motivo }}</li>
+        <li><strong>Paciente:</strong> {{ cita.paciente }}</li>
+        <li><strong>Fecha y Hora:</strong> {{ cita.fecha_hora }}</li>
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'listar_citas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
