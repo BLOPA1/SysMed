@@ -10,11 +10,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad
 SECRET_KEY = 'django-insecure-3%l!o9c_l^ji^1aw8%##dxv4ux!g6n1$-=rk4(bw@^o^lx1@-a'
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'b7c0-131-100-185-93.ngrok-free.app']
+DEBUG = False  # En producción, DEBUG debe estar siempre en False.
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'tu-dominio.com', 'b7c0-131-100-185-93.ngrok-free.app']
 
-# CSRF confiable para Ngrok
-CSRF_TRUSTED_ORIGINS = ['https://b7c0-131-100-185-93.ngrok-free.app']
+# CSRF confiable para Ngrok y dominios de producción
+CSRF_TRUSTED_ORIGINS = [
+    'https://b7c0-131-100-185-93.ngrok-free.app',
+    'https://tu-dominio.com',
+]
 
 # Apps instaladas
 INSTALLED_APPS = [
@@ -65,10 +68,10 @@ WSGI_APPLICATION = 'consultorio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'consultorio_db',
+        'NAME': 'consultorio_db',  # Cambia al nombre exacto de la base en producción
         'USER': 'postgres',
-        'PASSWORD': '922928a*',
-        'HOST': 'localhost',
+        'PASSWORD': '922928a*',  # Contraseña de producción
+        'HOST': 'localhost',  # Cambiar al host de tu base en producción si no es local
         'PORT': '5432',
     }
 }
@@ -96,8 +99,13 @@ USE_I18N = True
 USE_TZ = True
 
 # Archivos estáticos
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT =[ BASE_DIR / 'staticfiles']
+
+
+# Para producción
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Redirecciones después del login/logout
 LOGIN_URL = '/login/'  # Página de login

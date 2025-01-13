@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from usuarios.views import pagina_principal, login, logout
 
 urlpatterns = [
@@ -10,3 +12,7 @@ urlpatterns = [
     path('consultas/', include('usuarios.urls')),  # URLs de la app "usuarios"
     path('citas/', include('citas.urls')),  # URLs de la app "citas"
 ]
+
+# Sirviendo archivos estáticos en entorno de desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
